@@ -1,3 +1,5 @@
+
+
 package ur1.demoandroid2;
 
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +8,9 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Plateau extends AppCompatActivity {
 
@@ -22,12 +27,39 @@ public class Plateau extends AppCompatActivity {
     ImageButton pieceselected = null;
 
     ImageButton[][] bts;
+
+
+    // qui joue vrai = joueur blanc
+    // qui joue faux = joueur noir
+
+    boolean quijoue = true;
+
+    List<TypePiece> mainJoueurNoir = new ArrayList<TypePiece>();
+    List<TypePiece> mainJoueurBlanc= new ArrayList<TypePiece>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plateau);
+        mainJoueurNoir.add(TypePiece.piece1);
+        mainJoueurNoir.add(TypePiece.piece2);
+        mainJoueurNoir.add(TypePiece.piece3);
+        mainJoueurNoir.add(TypePiece.piece4);
+        mainJoueurNoir.add(TypePiece.piece5);
+        mainJoueurNoir.add(TypePiece.piece6);
+        mainJoueurNoir.add(TypePiece.piece7);
+        mainJoueurNoir.add(TypePiece.piece8);
 
-         bts = new ImageButton[4][4];
+        mainJoueurBlanc.add(TypePiece.piece1);
+        mainJoueurBlanc.add(TypePiece.piece2);
+        mainJoueurBlanc.add(TypePiece.piece3);
+        mainJoueurBlanc.add(TypePiece.piece4);
+        mainJoueurBlanc.add(TypePiece.piece5);
+        mainJoueurBlanc.add(TypePiece.piece6);
+        mainJoueurBlanc.add(TypePiece.piece7);
+        mainJoueurBlanc.add(TypePiece.piece8);
+
+
+        bts = new ImageButton[4][4];
 
         TableLayout table = (TableLayout) findViewById(R.id.mytablelayout);
 
@@ -59,6 +91,8 @@ public class Plateau extends AppCompatActivity {
         row2.addView(piece8);
 
 
+        tourJoueurBlanc();
+
         piece1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,16 +109,14 @@ public class Plateau extends AppCompatActivity {
 //                    pieceselected.getId();
                     if (pieceselected == piece1) {
                         bts[0][0].setImageResource(R.drawable.piece_0b);
-                        piece1.setImageResource(R.drawable.piece_0);
-                        piece2.setImageResource(R.drawable.piece_1);
-                        piece3.setImageResource(R.drawable.piece_2);
-                        piece4.setImageResource(R.drawable.piece_3);
-                        piece5.setImageResource(R.drawable.piece_4);
-                        piece6.setImageResource(R.drawable.piece_5);
-                        piece7.setImageResource(R.drawable.piece_6);
-                        piece8.setImageResource(R.drawable.piece_7);
-                        pieceselected.setImageResource(R.drawable.empty);
+                        mainJoueurBlanc.remove(TypePiece.piece1);
+                        if (quijoue){
+                            tourJoueurNoir();
 
+                        }
+                        else{
+                            tourJoueurBlanc();
+                        }
                     }
                     pieceselected =null;
                 }
@@ -114,6 +146,81 @@ public class Plateau extends AppCompatActivity {
 
 
         }
+    }
+
+    public void tourJoueurBlanc(){
+        quijoue = true;
+        piece1.setImageResource(R.drawable.empty);
+        piece2.setImageResource(R.drawable.empty);
+        piece3.setImageResource(R.drawable.empty);
+        piece4.setImageResource(R.drawable.empty);
+        piece5.setImageResource(R.drawable.empty);
+        piece6.setImageResource(R.drawable.empty);
+        piece7.setImageResource(R.drawable.empty);
+        piece8.setImageResource(R.drawable.empty);
+        for( TypePiece t : mainJoueurBlanc){
+            if (t.equals(TypePiece.piece1)){
+                piece1.setImageResource(R.drawable.piece_0b);
+            }else if (t.equals(TypePiece.piece2)){
+                piece2.setImageResource(R.drawable.piece_1b);
+            }else if (t.equals(TypePiece.piece3)){
+                piece3.setImageResource(R.drawable.piece_2b);
+            }
+            else if (t.equals(TypePiece.piece4)){
+                piece4.setImageResource(R.drawable.piece_3b);
+            }
+            else if (t.equals(TypePiece.piece5)){
+                piece5.setImageResource(R.drawable.piece_4b);
+            }
+            else if (t.equals(TypePiece.piece6)){
+                piece6.setImageResource(R.drawable.piece_5b);
+            }
+            else if (t.equals(TypePiece.piece7)){
+                piece7.setImageResource(R.drawable.piece_6b);
+            }
+            else if (t.equals(TypePiece.piece8)){
+                piece8.setImageResource(R.drawable.piece_7b);
+            }
+        }
+
+
+    }
+    public void tourJoueurNoir(){
+        quijoue = false;
+
+        piece1.setImageResource(R.drawable.empty);
+        piece2.setImageResource(R.drawable.empty);
+        piece3.setImageResource(R.drawable.empty);
+        piece4.setImageResource(R.drawable.empty);
+        piece5.setImageResource(R.drawable.empty);
+        piece6.setImageResource(R.drawable.empty);
+        piece7.setImageResource(R.drawable.empty);
+        piece8.setImageResource(R.drawable.empty);
+        for( TypePiece t : mainJoueurNoir){
+            if (t.equals(TypePiece.piece1)){
+                piece1.setImageResource(R.drawable.piece_0);
+            }else if (t.equals(TypePiece.piece2)){
+                piece2.setImageResource(R.drawable.piece_1);
+            }else if (t.equals(TypePiece.piece3)){
+                piece3.setImageResource(R.drawable.piece_2);
+            }
+            else if (t.equals(TypePiece.piece4)){
+                piece4.setImageResource(R.drawable.piece_3);
+            }
+            else if (t.equals(TypePiece.piece5)){
+                piece5.setImageResource(R.drawable.piece_4);
+            }
+            else if (t.equals(TypePiece.piece6)){
+                piece6.setImageResource(R.drawable.piece_5);
+            }
+            else if (t.equals(TypePiece.piece7)){
+                piece7.setImageResource(R.drawable.piece_6);
+            }
+            else if (t.equals(TypePiece.piece8)){
+                piece8.setImageResource(R.drawable.piece_7);
+            }
+        }
+
     }
 
 }

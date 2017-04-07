@@ -2,6 +2,7 @@
 
 package ur1.demoandroid2;
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -158,7 +159,7 @@ public class Plateau extends AppCompatActivity {
 
 
         TableRow row1 = (TableRow) findViewById(R.id.rowpiece1);
-        Display display = getWindowManager().getDefaultDisplay();
+        final Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
@@ -191,33 +192,39 @@ public class Plateau extends AppCompatActivity {
         piece1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                piece1.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                pieceselected = piece1;
+                if ((mainJoueurBlanc.contains(TypePiece.piece1) && quijoue) || (mainJoueurNoir.contains(TypePiece.piece1) && !quijoue)) {
+                    piece1.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    pieceselected = piece1;
+                }
             }
         });
         piece2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                piece2.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                pieceselected = piece2;
+                if ((mainJoueurBlanc.contains(TypePiece.piece2) && quijoue) || (mainJoueurNoir.contains(TypePiece.piece2) && !quijoue)) {
+                    piece2.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    pieceselected = piece2;
+                }
 
             }
         });
         piece3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                piece3.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-
-                pieceselected = piece3;
+                if ((mainJoueurBlanc.contains(TypePiece.piece3) && quijoue) || (mainJoueurNoir.contains(TypePiece.piece3) && !quijoue)) {
+                    piece3.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    pieceselected = piece3;
+                }
 
             }
         });
         piece4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                piece4.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-
-                pieceselected = piece4;
+                if ((mainJoueurBlanc.contains(TypePiece.piece4) && quijoue) || (mainJoueurNoir.contains(TypePiece.piece4) && !quijoue)) {
+                    piece4.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    pieceselected = piece4;
+                }
 
             }
         });
@@ -225,36 +232,40 @@ public class Plateau extends AppCompatActivity {
         piece5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                piece5.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-
-                pieceselected = piece5;
+                if ((mainJoueurBlanc.contains(TypePiece.piece5) && quijoue) || (mainJoueurNoir.contains(TypePiece.piece5) && !quijoue)) {
+                    piece5.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    pieceselected = piece5;
+                }
 
             }
         });
         piece6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                piece6.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-
-                pieceselected = piece6;
+                if ((mainJoueurBlanc.contains(TypePiece.piece6) && quijoue) || (mainJoueurNoir.contains(TypePiece.piece6) && !quijoue)) {
+                    piece6.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    pieceselected = piece6;
+                }
 
             }
         });
         piece7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                piece7.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-
-                pieceselected = piece7;
+                if ((mainJoueurBlanc.contains(TypePiece.piece7) && quijoue) || (mainJoueurNoir.contains(TypePiece.piece7) && !quijoue)) {
+                    piece7.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    pieceselected = piece7;
+                }
 
             }
         });
         piece8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                piece8.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-
-                pieceselected = piece8;
+                if ((mainJoueurBlanc.contains(TypePiece.piece8) && quijoue) || (mainJoueurNoir.contains(TypePiece.piece8) && !quijoue)) {
+                    piece8.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    pieceselected = piece8;
+                }
 
             }
         });
@@ -479,6 +490,9 @@ public class Plateau extends AppCompatActivity {
             piece6.setOnClickListener(null);
             piece7.setOnClickListener(null);
             piece8.setOnClickListener(null);
+            Intent transition = new Intent(Plateau.this, Demo3.class);
+            startActivity(transition);
+
         }
 
 
@@ -525,6 +539,9 @@ public class Plateau extends AppCompatActivity {
             piece6.setOnClickListener(null);
             piece7.setOnClickListener(null);
             piece8.setOnClickListener(null);
+            Intent transition = new Intent(Plateau.this, Demo3.class);
+            startActivity(transition);
+
         }
 
     }

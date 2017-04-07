@@ -6,4 +6,29 @@
     android:layout_height="match_parent"
     tools:context="ur1.demoandroid2.Demo3">
 
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="106dp"
+            android:layout_weight="1"
+            android:text="Victoire"
+            android:textSize="30sp"
+            tools:layout_editor_absoluteX="138dp"
+            tools:layout_editor_absoluteY="173dp" />
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="100pt"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Rejouer" />
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

@@ -73,8 +73,19 @@ public class Plateau extends AppCompatActivity {
             public void onClick(View view) {
                 if (pieceselected != null){
 //                    pieceselected.getId();
-                    if (pieceselected == piece1)
+                    if (pieceselected == piece1) {
                         bts[0][0].setImageResource(R.drawable.piece_0b);
+                        piece1.setImageResource(R.drawable.piece_0);
+                        piece2.setImageResource(R.drawable.piece_1);
+                        piece3.setImageResource(R.drawable.piece_2);
+                        piece4.setImageResource(R.drawable.piece_3);
+                        piece5.setImageResource(R.drawable.piece_4);
+                        piece6.setImageResource(R.drawable.piece_5);
+                        piece7.setImageResource(R.drawable.piece_6);
+                        piece8.setImageResource(R.drawable.piece_7);
+                        pieceselected.setImageResource(R.drawable.empty);
+
+                    }
                     pieceselected =null;
                 }
 

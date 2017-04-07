@@ -2,10 +2,15 @@
 
 package ur1.demoandroid2;
 
+import android.graphics.Point;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
+import android.widget.Gallery;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -153,6 +158,13 @@ public class Plateau extends AppCompatActivity {
 
 
         TableRow row1 = (TableRow) findViewById(R.id.rowpiece1);
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+
+        row1.setLayoutParams(new TableLayout.LayoutParams(width/4,width/4));
         piece1 = createPiece(R.drawable.piece_0b);
         piece2 = createPiece(R.drawable.piece_1b);
         piece3 = createPiece(R.drawable.piece_2b);
@@ -179,12 +191,14 @@ public class Plateau extends AppCompatActivity {
         piece1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                piece1.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 pieceselected = piece1;
             }
         });
         piece2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                piece2.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 pieceselected = piece2;
 
             }
@@ -192,6 +206,8 @@ public class Plateau extends AppCompatActivity {
         piece3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                piece3.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+
                 pieceselected = piece3;
 
             }
@@ -199,6 +215,8 @@ public class Plateau extends AppCompatActivity {
         piece4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                piece4.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+
                 pieceselected = piece4;
 
             }
@@ -207,6 +225,8 @@ public class Plateau extends AppCompatActivity {
         piece5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                piece5.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+
                 pieceselected = piece5;
 
             }
@@ -214,6 +234,8 @@ public class Plateau extends AppCompatActivity {
         piece6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                piece6.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+
                 pieceselected = piece6;
 
             }
@@ -221,6 +243,8 @@ public class Plateau extends AppCompatActivity {
         piece7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                piece7.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+
                 pieceselected = piece7;
 
             }
@@ -228,6 +252,8 @@ public class Plateau extends AppCompatActivity {
         piece8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                piece8.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+
                 pieceselected = piece8;
 
             }
@@ -348,6 +374,8 @@ public class Plateau extends AppCompatActivity {
                             }
 
 
+                            bts[k][l].setOnClickListener(null);
+
                             if (quijoue) {
                                 tourJoueurNoir();
 
@@ -355,7 +383,11 @@ public class Plateau extends AppCompatActivity {
                                 tourJoueurBlanc();
                             }
 
+
+
+                            pieceselected.setBackgroundColor(getResources().getColor(R.color.colorBackground));
                             pieceselected = null;
+
                         }
 
                     }
@@ -368,15 +400,34 @@ public class Plateau extends AppCompatActivity {
 
 
     public ImageButton createPiece(int id) {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+
+
         ImageButton btnGreen = new ImageButton(this);
+        btnGreen.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        btnGreen.setLayoutParams(new TableRow.LayoutParams(width/5,width/5));
+
         btnGreen.setImageResource(id);
         return btnGreen;
     }
 
     public void createRow(ImageButton[][] bts, TableRow row, int column) {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+        System.out.println(width);
+
         for (int i = 0; i < 4; i++) {
 
             ImageButton btnGreen = new ImageButton(this);
+            btnGreen.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            btnGreen.setLayoutParams(new TableRow.LayoutParams(width/4,width/4));
             btnGreen.setImageResource(R.drawable.empty);
             btnGreen.setTag(i);
             btnGreen.setId(i);
@@ -419,6 +470,15 @@ public class Plateau extends AppCompatActivity {
                     piece8.setImageResource(R.drawable.piece_7b);
                 }
             }
+        }else{
+            piece1.setOnClickListener(null);
+            piece2.setOnClickListener(null);
+            piece3.setOnClickListener(null);
+            piece4.setOnClickListener(null);
+            piece5.setOnClickListener(null);
+            piece6.setOnClickListener(null);
+            piece7.setOnClickListener(null);
+            piece8.setOnClickListener(null);
         }
 
 
@@ -456,6 +516,17 @@ public class Plateau extends AppCompatActivity {
                 }
             }
         }
+        else{
+            piece1.setOnClickListener(null);
+            piece2.setOnClickListener(null);
+            piece3.setOnClickListener(null);
+            piece4.setOnClickListener(null);
+            piece5.setOnClickListener(null);
+            piece6.setOnClickListener(null);
+            piece7.setOnClickListener(null);
+            piece8.setOnClickListener(null);
+        }
+
     }
 
 
@@ -540,7 +611,7 @@ public class Plateau extends AppCompatActivity {
             boolean entoureNon = true;
             boolean croixounon = true;
             for (int j = 1; j < 4; j++) {
-                Caracteristique colone1 = quelCaractristique(plateau[0][j]);
+                Caracteristique colone1 = quelCaractristique(plateau[0][0]);
                 Caracteristique autrecolone = quelCaractristique(plateau[j][j]);
                 if (colone1.noirblanc != autrecolone.noirblanc)
                     noirBlanc = false;
@@ -573,7 +644,7 @@ public class Plateau extends AppCompatActivity {
             for (int j = 1; j < 4; j++) {
                 int i = 3-j;
 
-                Caracteristique colone1 = quelCaractristique(plateau[i][0]);
+                Caracteristique colone1 = quelCaractristique(plateau[3][0]);
                 Caracteristique autrecolone = quelCaractristique(plateau[i][j]);
                 if (colone1.noirblanc != autrecolone.noirblanc)
                     noirBlanc = false;

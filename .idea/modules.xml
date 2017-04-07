@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DemoAndroid2.iml" filepath="$PROJECT_DIR$/DemoAndroid2.iml" />
+      <module fileurl="file://$USER_HOME$/Library/Mobile Documents/com~apple~CloudDocs/Datas/Git/Kyuta/quatro/app/app.iml" filepath="$USER_HOME$/Library/Mobile Documents/com~apple~CloudDocs/Datas/Git/Kyuta/quatro/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$USER_HOME$/Library/Mobile Documents/com~apple~CloudDocs/Datas/Git/Kyuta/quatro/quatro.iml" filepath="$USER_HOME$/Library/Mobile Documents/com~apple~CloudDocs/Datas/Git/Kyuta/quatro/quatro.iml" />
     </modules>
   </component>
 </project>

@@ -7,8 +7,8 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
+            <option value="$USER_HOME$/Library/Mobile Documents/com~apple~CloudDocs/Datas/Git/Kyuta/quatro" />
+            <option value="$USER_HOME$/Library/Mobile Documents/com~apple~CloudDocs/Datas/Git/Kyuta/quatro/app" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

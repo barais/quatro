@@ -15,7 +15,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Plateau"></activity>
+        <activity android:name=".Plateau" />
+        <activity android:name=".Demo3"></activity>
     </application>
 
 </manifest>

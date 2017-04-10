@@ -24,9 +24,5 @@ public class Demo3 extends AppCompatActivity {
                 startActivity(transition);
             }
         });
-
-
-
-
     }
 }

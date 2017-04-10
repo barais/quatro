@@ -4,12 +4,10 @@ package ur1.demoandroid2;
 
 import android.content.Intent;
 import android.graphics.Point;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
-import android.widget.Gallery;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TableLayout;
@@ -18,104 +16,23 @@ import android.widget.TableRow;
 import java.util.ArrayList;
 import java.util.List;
 
+import ur1.demoandroid2.model.Caracteristique;
+import ur1.demoandroid2.model.Case;
+import ur1.demoandroid2.model.CercleCarre;
+import ur1.demoandroid2.model.CroixVide;
+import ur1.demoandroid2.model.Entoure;
+import ur1.demoandroid2.model.NoirBlanc;
+import ur1.demoandroid2.model.TypePiece;
+
 public class Plateau extends AppCompatActivity {
 
-
-    ImageButton piece1;
-    ImageButton piece2;
-    ImageButton piece3;
-    ImageButton piece4;
-    ImageButton piece5;
-    ImageButton piece6;
-    ImageButton piece7;
-    ImageButton piece8;
-
-    ImageButton pieceselected = null;
-
-    ImageButton[][] bts;
+    ImageButton[] pieces =new ImageButton[8];
+    int pieceselected = -1;
+    ImageButton[][] bts =new ImageButton[4][4];;
     Case[][] plateau = new Case[4][4];
 
-
-    enum NoirBlanc {
-        noir, blanc
-    }
-
-    enum CercleCarre {
-        cercle, carre
-    }
-
-    enum CroixVide {
-        croix, vide
-    }
-
-    enum Entoure {
-        entoure, nonentoure
-    }
-
-    class Caracteristique {
-        NoirBlanc noirblanc;
-        CercleCarre cerclecarre;
-        CroixVide croixvide;
-        Entoure entoure;
-    }
-
-
-    class Case {
-        Case(TypePiece type, NoirBlanc noirblanc) {
-            this.type = type;
-            this.noirblanc = noirblanc;
-
-        }
-
-        TypePiece type;
-        NoirBlanc noirblanc;
-
-    }
-
-
-    public Caracteristique quelCaractristique(Case case1) {
-        Caracteristique c = new Caracteristique();
-        c.noirblanc = case1.noirblanc;
-        if (case1.type == TypePiece.piece1) {
-            c.cerclecarre = CercleCarre.cercle;
-            c.entoure = Entoure.nonentoure;
-            c.croixvide = CroixVide.vide;
-        } else if (case1.type == TypePiece.piece2) {
-            c.cerclecarre = CercleCarre.cercle;
-            c.entoure = Entoure.entoure;
-            c.croixvide = CroixVide.vide;
-        } else if (case1.type == TypePiece.piece3) {
-            c.cerclecarre = CercleCarre.carre;
-            c.entoure = Entoure.nonentoure;
-            c.croixvide = CroixVide.vide;
-        } else if (case1.type == TypePiece.piece4) {
-            c.cerclecarre = CercleCarre.carre;
-            c.entoure = Entoure.entoure;
-            c.croixvide = CroixVide.vide;
-        } else if (case1.type == TypePiece.piece5) {
-            c.cerclecarre = CercleCarre.cercle;
-            c.entoure = Entoure.nonentoure;
-            c.croixvide = CroixVide.croix;
-        } else if (case1.type == TypePiece.piece6) {
-            c.cerclecarre = CercleCarre.cercle;
-            c.entoure = Entoure.entoure;
-            c.croixvide = CroixVide.croix;
-        } else if (case1.type == TypePiece.piece7) {
-            c.cerclecarre = CercleCarre.carre;
-            c.entoure = Entoure.nonentoure;
-            c.croixvide = CroixVide.croix;
-        } else if (case1.type == TypePiece.piece8) {
-            c.cerclecarre = CercleCarre.carre;
-            c.entoure = Entoure.entoure;
-            c.croixvide = CroixVide.croix;
-        }
-
-        return c;
-//        if (bt1.getIma)
-
-
-    }
-
+    List<Integer> imagePiecesBlanche = new ArrayList<Integer>() ;
+    List<Integer> imagePiecesNoir = new ArrayList<Integer>() ;
 
     // qui joue vrai = joueur blanc
     // qui joue faux = joueur noir
@@ -125,10 +42,7 @@ public class Plateau extends AppCompatActivity {
     List<TypePiece> mainJoueurNoir = new ArrayList<TypePiece>();
     List<TypePiece> mainJoueurBlanc = new ArrayList<TypePiece>();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_plateau);
+    private void init(){
         mainJoueurNoir.add(TypePiece.piece1);
         mainJoueurNoir.add(TypePiece.piece2);
         mainJoueurNoir.add(TypePiece.piece3);
@@ -147,8 +61,31 @@ public class Plateau extends AppCompatActivity {
         mainJoueurBlanc.add(TypePiece.piece7);
         mainJoueurBlanc.add(TypePiece.piece8);
 
+        imagePiecesBlanche.add(R.drawable.piece_0b);
+        imagePiecesBlanche.add(R.drawable.piece_1b);
+        imagePiecesBlanche.add(R.drawable.piece_2b);
+        imagePiecesBlanche.add(R.drawable.piece_3b);
+        imagePiecesBlanche.add(R.drawable.piece_4b);
+        imagePiecesBlanche.add(R.drawable.piece_5b);
+        imagePiecesBlanche.add(R.drawable.piece_6b);
+        imagePiecesBlanche.add(R.drawable.piece_7b);
 
-        bts = new ImageButton[4][4];
+        imagePiecesNoir.add(R.drawable.piece_0);
+        imagePiecesNoir.add(R.drawable.piece_1);
+        imagePiecesNoir.add(R.drawable.piece_2);
+        imagePiecesNoir.add(R.drawable.piece_3);
+        imagePiecesNoir.add(R.drawable.piece_4);
+        imagePiecesNoir.add(R.drawable.piece_5);
+        imagePiecesNoir.add(R.drawable.piece_6);
+        imagePiecesNoir.add(R.drawable.piece_7);
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_plateau);
+        init();
 
         TableLayout table = (TableLayout) findViewById(R.id.mytablelayout);
 
@@ -157,119 +94,33 @@ public class Plateau extends AppCompatActivity {
             createRow(bts, row, i);
         }
 
-
         TableRow row1 = (TableRow) findViewById(R.id.rowpiece1);
-        final Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
-        int height = size.y;
-
-        row1.setLayoutParams(new TableLayout.LayoutParams(width/4,width/4));
-        piece1 = createPiece(R.drawable.piece_0b);
-        piece2 = createPiece(R.drawable.piece_1b);
-        piece3 = createPiece(R.drawable.piece_2b);
-        piece4 = createPiece(R.drawable.piece_3b);
-        row1.addView(piece1);
-        row1.addView(piece2);
-        row1.addView(piece3);
-        row1.addView(piece4);
-
-
         TableRow row2 = (TableRow) findViewById(R.id.rowpiece2);
-        piece5 = createPiece(R.drawable.piece_4b);
-        piece6 = createPiece(R.drawable.piece_5b);
-        piece7 = createPiece(R.drawable.piece_6b);
-        piece8 = createPiece(R.drawable.piece_7b);
-        row2.addView(piece5);
-        row2.addView(piece6);
-        row2.addView(piece7);
-        row2.addView(piece8);
 
-
-        tourJoueurBlanc();
-
-        piece1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if ((mainJoueurBlanc.contains(TypePiece.piece1) && quijoue) || (mainJoueurNoir.contains(TypePiece.piece1) && !quijoue)) {
-                    piece1.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                    pieceselected = piece1;
-                }
+        for (int i = 0; i<8;i++){
+            pieces[i] = createPiece(imagePiecesBlanche.get(i));
+            if (i<4){
+                row1.addView(pieces[i]);
+            }else{
+                row2.addView(pieces[i]);
             }
-        });
-        piece2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if ((mainJoueurBlanc.contains(TypePiece.piece2) && quijoue) || (mainJoueurNoir.contains(TypePiece.piece2) && !quijoue)) {
-                    piece2.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                    pieceselected = piece2;
+
+        }
+
+        for (int i = 0; i<8;i++){
+            final int k = i;
+            pieces[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if ((mainJoueurBlanc.contains(TypePiece.values()[k]) && quijoue) || (mainJoueurNoir.contains(TypePiece.values()[k]) && !quijoue)) {
+                        pieces[k].setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                        pieceselected = k;
+                    }
                 }
+            });
+        }
 
-            }
-        });
-        piece3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if ((mainJoueurBlanc.contains(TypePiece.piece3) && quijoue) || (mainJoueurNoir.contains(TypePiece.piece3) && !quijoue)) {
-                    piece3.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                    pieceselected = piece3;
-                }
-
-            }
-        });
-        piece4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if ((mainJoueurBlanc.contains(TypePiece.piece4) && quijoue) || (mainJoueurNoir.contains(TypePiece.piece4) && !quijoue)) {
-                    piece4.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                    pieceselected = piece4;
-                }
-
-            }
-        });
-
-        piece5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if ((mainJoueurBlanc.contains(TypePiece.piece5) && quijoue) || (mainJoueurNoir.contains(TypePiece.piece5) && !quijoue)) {
-                    piece5.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                    pieceselected = piece5;
-                }
-
-            }
-        });
-        piece6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if ((mainJoueurBlanc.contains(TypePiece.piece6) && quijoue) || (mainJoueurNoir.contains(TypePiece.piece6) && !quijoue)) {
-                    piece6.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                    pieceselected = piece6;
-                }
-
-            }
-        });
-        piece7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if ((mainJoueurBlanc.contains(TypePiece.piece7) && quijoue) || (mainJoueurNoir.contains(TypePiece.piece7) && !quijoue)) {
-                    piece7.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                    pieceselected = piece7;
-                }
-
-            }
-        });
-        piece8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if ((mainJoueurBlanc.contains(TypePiece.piece8) && quijoue) || (mainJoueurNoir.contains(TypePiece.piece8) && !quijoue)) {
-                    piece8.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                    pieceselected = piece8;
-                }
-
-            }
-        });
-
+        nextTurn();
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
@@ -279,126 +130,21 @@ public class Plateau extends AppCompatActivity {
                 bts[i][j].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (pieceselected != null) {
+                        if (pieceselected != -1) {
 //                    pieceselected.getId();
-                            if (pieceselected == piece1) {
                                 if (quijoue) {
-                                    bts[k][l].setImageResource(R.drawable.piece_0b);
-                                    plateau[k][l] = new Case(TypePiece.piece1, NoirBlanc.blanc);
-                                    mainJoueurBlanc.remove(TypePiece.piece1);
+                                    bts[k][l].setImageResource(imagePiecesBlanche.get(pieceselected));
+                                    plateau[k][l] = new Case(TypePiece.values()[k], NoirBlanc.blanc);
+                                    mainJoueurBlanc.remove(TypePiece.values()[k]);
                                 } else {
-                                    plateau[k][l] = new Case(TypePiece.piece1, NoirBlanc.noir);
-                                    bts[k][l].setImageResource(R.drawable.piece_0);
-                                    mainJoueurNoir.remove(TypePiece.piece1);
+                                    plateau[k][l] = new Case(TypePiece.values()[k], NoirBlanc.noir);
+                                    bts[k][l].setImageResource(imagePiecesNoir.get(pieceselected));
+                                    mainJoueurNoir.remove(TypePiece.values()[k]);
                                 }
-
-
-                            } else if (pieceselected == piece2) {
-                                if (quijoue) {
-                                    plateau[k][l] = new Case(TypePiece.piece2, NoirBlanc.blanc);
-
-                                    bts[k][l].setImageResource(R.drawable.piece_1b);
-                                    mainJoueurBlanc.remove(TypePiece.piece2);
-                                } else {
-                                    plateau[k][l] = new Case(TypePiece.piece2, NoirBlanc.noir);
-
-                                    bts[k][l].setImageResource(R.drawable.piece_1);
-                                    mainJoueurNoir.remove(TypePiece.piece2);
-                                }
-
-                            } else if (pieceselected == piece3) {
-                                if (quijoue) {
-                                    plateau[k][l] = new Case(TypePiece.piece3, NoirBlanc.blanc);
-                                    bts[k][l].setImageResource(R.drawable.piece_2b);
-                                    mainJoueurBlanc.remove(TypePiece.piece3);
-                                } else {
-                                    plateau[k][l] = new Case(TypePiece.piece3, NoirBlanc.noir);
-
-                                    bts[k][l].setImageResource(R.drawable.piece_2);
-                                    mainJoueurNoir.remove(TypePiece.piece3);
-                                }
-
-                            } else if (pieceselected == piece4) {
-                                if (quijoue) {
-                                    plateau[k][l] = new Case(TypePiece.piece4, NoirBlanc.blanc);
-                                    bts[k][l].setImageResource(R.drawable.piece_3b);
-                                    mainJoueurBlanc.remove(TypePiece.piece4);
-                                } else {
-                                    plateau[k][l] = new Case(TypePiece.piece4, NoirBlanc.noir);
-
-                                    bts[k][l].setImageResource(R.drawable.piece_3);
-                                    mainJoueurNoir.remove(TypePiece.piece4);
-                                }
-
-                            } else if (pieceselected == piece5) {
-                                if (quijoue) {
-                                    plateau[k][l] = new Case(TypePiece.piece5, NoirBlanc.blanc);
-
-                                    bts[k][l].setImageResource(R.drawable.piece_4b);
-                                    mainJoueurBlanc.remove(TypePiece.piece5);
-                                } else {
-                                    plateau[k][l] = new Case(TypePiece.piece5, NoirBlanc.noir);
-
-                                    bts[k][l].setImageResource(R.drawable.piece_4);
-                                    mainJoueurNoir.remove(TypePiece.piece5);
-                                }
-
-                            } else if (pieceselected == piece6) {
-                                if (quijoue) {
-                                    plateau[k][l] = new Case(TypePiece.piece6, NoirBlanc.blanc);
-
-                                    bts[k][l].setImageResource(R.drawable.piece_5b);
-                                    mainJoueurBlanc.remove(TypePiece.piece6);
-                                } else {
-                                    plateau[k][l] = new Case(TypePiece.piece6, NoirBlanc.noir);
-
-                                    bts[k][l].setImageResource(R.drawable.piece_5);
-                                    mainJoueurNoir.remove(TypePiece.piece6);
-                                }
-
-                            } else if (pieceselected == piece7) {
-                                if (quijoue) {
-                                    plateau[k][l] = new Case(TypePiece.piece7, NoirBlanc.blanc);
-
-                                    bts[k][l].setImageResource(R.drawable.piece_6b);
-                                    mainJoueurBlanc.remove(TypePiece.piece7);
-                                } else {
-                                    plateau[k][l] = new Case(TypePiece.piece7, NoirBlanc.noir);
-
-                                    bts[k][l].setImageResource(R.drawable.piece_6);
-                                    mainJoueurNoir.remove(TypePiece.piece7);
-                                }
-
-                            } else if (pieceselected == piece8) {
-                                if (quijoue) {
-                                    plateau[k][l] = new Case(TypePiece.piece8, NoirBlanc.blanc);
-
-                                    bts[k][l].setImageResource(R.drawable.piece_7b);
-                                    mainJoueurBlanc.remove(TypePiece.piece8);
-                                } else {
-                                    plateau[k][l] = new Case(TypePiece.piece8, NoirBlanc.noir);
-
-                                    bts[k][l].setImageResource(R.drawable.piece_7);
-                                    mainJoueurNoir.remove(TypePiece.piece8);
-                                }
-
-                            }
-
-
-                            bts[k][l].setOnClickListener(null);
-
-                            if (quijoue) {
-                                tourJoueurNoir();
-
-                            } else {
-                                tourJoueurBlanc();
-                            }
-
-
-
-                            pieceselected.setBackgroundColor(getResources().getColor(R.color.colorBackground));
-                            pieceselected = null;
-
+                                bts[k][l].setOnClickListener(null);
+                            nextTurn();
+                            pieces[pieceselected].setBackgroundColor(getResources().getColor(R.color.colorBackground));
+                            pieceselected = -1;
                         }
 
                     }
@@ -409,276 +155,134 @@ public class Plateau extends AppCompatActivity {
         ;
     }
 
-
-    public ImageButton createPiece(int id) {
+    private Point getWindowSize(){
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        int width = size.x;
-        int height = size.y;
+        return size;
+    }
 
-
+    public ImageButton createPiece(int id) {
         ImageButton btnGreen = new ImageButton(this);
         btnGreen.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        btnGreen.setLayoutParams(new TableRow.LayoutParams(width/5,width/5));
-
+        btnGreen.setLayoutParams(new TableRow.LayoutParams(getWindowSize().x/5,getWindowSize().y/5));
         btnGreen.setImageResource(id);
         return btnGreen;
     }
 
     public void createRow(ImageButton[][] bts, TableRow row, int column) {
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
-        int height = size.y;
-        System.out.println(width);
-
         for (int i = 0; i < 4; i++) {
-
             ImageButton btnGreen = new ImageButton(this);
             btnGreen.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-            btnGreen.setLayoutParams(new TableRow.LayoutParams(width/4,width/4));
+            btnGreen.setLayoutParams(new TableRow.LayoutParams(getWindowSize().x/4,getWindowSize().y/4));
             btnGreen.setImageResource(R.drawable.empty);
             btnGreen.setTag(i);
             btnGreen.setId(i);
             row.addView(btnGreen);
             bts[column][i] = btnGreen;
-//            gameBoard..addView(btnGreen);
-
-
         }
     }
 
-    public void tourJoueurBlanc() {
-        if (!vainqueur()) {
+    public void afterVictory(){
+        for (int i = 0;i<8;i++){
+            pieces[i].setOnClickListener(null);
+        }
+        Intent transition = new Intent(Plateau.this, Demo3.class);
+        startActivity(transition);
+    }
 
-            quijoue = true;
-            piece1.setImageResource(R.drawable.empty);
-            piece2.setImageResource(R.drawable.empty);
-            piece3.setImageResource(R.drawable.empty);
-            piece4.setImageResource(R.drawable.empty);
-            piece5.setImageResource(R.drawable.empty);
-            piece6.setImageResource(R.drawable.empty);
-            piece7.setImageResource(R.drawable.empty);
-            piece8.setImageResource(R.drawable.empty);
-            for (TypePiece t : mainJoueurBlanc) {
-                if (t.equals(TypePiece.piece1)) {
-                    piece1.setImageResource(R.drawable.piece_0b);
-                } else if (t.equals(TypePiece.piece2)) {
-                    piece2.setImageResource(R.drawable.piece_1b);
-                } else if (t.equals(TypePiece.piece3)) {
-                    piece3.setImageResource(R.drawable.piece_2b);
-                } else if (t.equals(TypePiece.piece4)) {
-                    piece4.setImageResource(R.drawable.piece_3b);
-                } else if (t.equals(TypePiece.piece5)) {
-                    piece5.setImageResource(R.drawable.piece_4b);
-                } else if (t.equals(TypePiece.piece6)) {
-                    piece6.setImageResource(R.drawable.piece_5b);
-                } else if (t.equals(TypePiece.piece7)) {
-                    piece7.setImageResource(R.drawable.piece_6b);
-                } else if (t.equals(TypePiece.piece8)) {
-                    piece8.setImageResource(R.drawable.piece_7b);
+
+
+    public void nextTurn(){
+        if (!vainqueur()) {
+            for (int i = 0;i<8;i++){
+                pieces[i].setImageResource(R.drawable.empty);
+                if (quijoue) {
+                    if (mainJoueurBlanc.contains(TypePiece.values()[i])) {
+                        pieces[i].setImageResource(imagePiecesBlanche.get(i));
+                    }
+                }else{
+                    if (mainJoueurNoir.contains(TypePiece.values()[i])) {
+                        pieces[i].setImageResource(imagePiecesNoir.get(i));
+                    }
                 }
             }
+            quijoue = !quijoue;
         }else{
-            piece1.setOnClickListener(null);
-            piece2.setOnClickListener(null);
-            piece3.setOnClickListener(null);
-            piece4.setOnClickListener(null);
-            piece5.setOnClickListener(null);
-            piece6.setOnClickListener(null);
-            piece7.setOnClickListener(null);
-            piece8.setOnClickListener(null);
-            Intent transition = new Intent(Plateau.this, Demo3.class);
-            startActivity(transition);
-
+            afterVictory();
         }
-
-
     }
 
-    public void tourJoueurNoir() {
-        if (!vainqueur()) {
-            quijoue = false;
 
-            piece1.setImageResource(R.drawable.empty);
-            piece2.setImageResource(R.drawable.empty);
-            piece3.setImageResource(R.drawable.empty);
-            piece4.setImageResource(R.drawable.empty);
-            piece5.setImageResource(R.drawable.empty);
-            piece6.setImageResource(R.drawable.empty);
-            piece7.setImageResource(R.drawable.empty);
-            piece8.setImageResource(R.drawable.empty);
-            for (TypePiece t : mainJoueurNoir) {
-                if (t.equals(TypePiece.piece1)) {
-                    piece1.setImageResource(R.drawable.piece_0);
-                } else if (t.equals(TypePiece.piece2)) {
-                    piece2.setImageResource(R.drawable.piece_1);
-                } else if (t.equals(TypePiece.piece3)) {
-                    piece3.setImageResource(R.drawable.piece_2);
-                } else if (t.equals(TypePiece.piece4)) {
-                    piece4.setImageResource(R.drawable.piece_3);
-                } else if (t.equals(TypePiece.piece5)) {
-                    piece5.setImageResource(R.drawable.piece_4);
-                } else if (t.equals(TypePiece.piece6)) {
-                    piece6.setImageResource(R.drawable.piece_5);
-                } else if (t.equals(TypePiece.piece7)) {
-                    piece7.setImageResource(R.drawable.piece_6);
-                } else if (t.equals(TypePiece.piece8)) {
-                    piece8.setImageResource(R.drawable.piece_7);
-                }
+
+    public boolean verifyLine(Case[] cases){
+        boolean lignepleine = true;
+        for (int j = 0; j < 4; j++) {
+            if (cases[j] == null) {
+                lignepleine = false;
             }
         }
-        else{
-            piece1.setOnClickListener(null);
-            piece2.setOnClickListener(null);
-            piece3.setOnClickListener(null);
-            piece4.setOnClickListener(null);
-            piece5.setOnClickListener(null);
-            piece6.setOnClickListener(null);
-            piece7.setOnClickListener(null);
-            piece8.setOnClickListener(null);
-            Intent transition = new Intent(Plateau.this, Demo3.class);
-            startActivity(transition);
+        if (lignepleine == true) {
+            boolean noirBlanc = true;
+            boolean cercleCarre = true;
+            boolean entoureNon = true;
+            boolean croixounon = true;
+            for (int j = 1; j < 4; j++) {
+                Caracteristique colone1 = TypePiece.piece1.quelCaractristique(cases[0]);
+                Caracteristique autrecolone = TypePiece.piece1.quelCaractristique(cases[j]);
+                if (colone1.noirblanc != autrecolone.noirblanc)
+                    noirBlanc = false;
+                if (colone1.croixvide != autrecolone.croixvide)
+                    croixounon = false;
+                if (colone1.cerclecarre != autrecolone.cerclecarre)
+                    cercleCarre = false;
+                if (colone1.entoure != autrecolone.entoure)
+                    entoureNon = false;
 
+            }
+            if (noirBlanc == true || cercleCarre == true || entoureNon == true || croixounon == true) {
+                return true;
+            }
         }
-
+        return false;
     }
 
 
     public boolean vainqueur() {
         //Vérification Ligne
         for (int i = 0; i < 4; i++) {
-            boolean lignepleine = true;
-            for (int j = 0; j < 4; j++) {
-                if (plateau[i][j] == null) {
-                    lignepleine = false;
-                }
+            if (verifyLine(plateau[i])){
+                return true;
             }
-            if (lignepleine == true) {
-                boolean noirBlanc = true;
-                boolean cercleCarre = true;
-                boolean entoureNon = true;
-                boolean croixounon = true;
-                for (int j = 1; j < 4; j++) {
-                    Caracteristique colone1 = quelCaractristique(plateau[i][0]);
-                    Caracteristique autrecolone = quelCaractristique(plateau[i][j]);
-                    if (colone1.noirblanc != autrecolone.noirblanc)
-                        noirBlanc = false;
-                    if (colone1.croixvide != autrecolone.croixvide)
-                        croixounon = false;
-                    if (colone1.cerclecarre != autrecolone.cerclecarre)
-                        cercleCarre = false;
-                    if (colone1.entoure != autrecolone.entoure)
-                        entoureNon = false;
-
-                }
-                if (noirBlanc == true || cercleCarre == true || entoureNon == true || croixounon == true) {
-                    return true;
-                }
-            }
-
         }
-
         //Vérification Colonne
-
         for (int i = 0; i < 4; i++) {
-            boolean colonnepleine = true;
+            Case[] cases = new Case[4];
             for (int j = 0; j < 4; j++) {
-                if (plateau[j][i] == null) {
-                    colonnepleine = false;
-                }
+                cases[j] = plateau[j][i];
             }
-            if (colonnepleine == true) {
-                boolean noirBlanc = true;
-                boolean cercleCarre = true;
-                boolean entoureNon = true;
-                boolean croixounon = true;
-                for (int j = 1; j < 4; j++) {
-                    Caracteristique colone1 = quelCaractristique(plateau[0][i]);
-                    Caracteristique autrecolone = quelCaractristique(plateau[j][i]);
-                    if (colone1.noirblanc != autrecolone.noirblanc)
-                        noirBlanc = false;
-                    if (colone1.croixvide != autrecolone.croixvide)
-                        croixounon = false;
-                    if (colone1.cerclecarre != autrecolone.cerclecarre)
-                        cercleCarre = false;
-                    if (colone1.entoure != autrecolone.entoure)
-                        entoureNon = false;
-
-                }
-                if (noirBlanc == true || cercleCarre == true || entoureNon == true || croixounon == true) {
-                    return true;
-                }
-            }
-
-        }
-
-
-        boolean diagonalePleine = true;
-        for (int j = 0; j < 4; j++) {
-            if (plateau[j][j] == null) {
-                diagonalePleine = false;
-            }
-        }
-        if (diagonalePleine == true) {
-            boolean noirBlanc = true;
-            boolean cercleCarre = true;
-            boolean entoureNon = true;
-            boolean croixounon = true;
-            for (int j = 1; j < 4; j++) {
-                Caracteristique colone1 = quelCaractristique(plateau[0][0]);
-                Caracteristique autrecolone = quelCaractristique(plateau[j][j]);
-                if (colone1.noirblanc != autrecolone.noirblanc)
-                    noirBlanc = false;
-                if (colone1.croixvide != autrecolone.croixvide)
-                    croixounon = false;
-                if (colone1.cerclecarre != autrecolone.cerclecarre)
-                    cercleCarre = false;
-                if (colone1.entoure != autrecolone.entoure)
-                    entoureNon = false;
-
-            }
-            if (noirBlanc == true || cercleCarre == true || entoureNon == true || croixounon == true) {
+            if (verifyLine(cases)){
                 return true;
             }
         }
-
-
-        boolean diagonaleInverse = true;
-        for (int j = 0; j < 4; j++) {
-            int i = 3-j;
-            if (plateau[i][j] == null) {
-                diagonaleInverse = false;
+        //Vérification Diago1
+        Case[] cases = new Case[4];
+        for (int i = 0; i < 4; i++) {
+            cases[i] = plateau[i][i];
             }
+        if (verifyLine(cases)){
+            return true;
         }
-        if (diagonaleInverse == true) {
-            boolean noirBlanc = true;
-            boolean cercleCarre = true;
-            boolean entoureNon = true;
-            boolean croixounon = true;
-            for (int j = 1; j < 4; j++) {
-                int i = 3-j;
-
-                Caracteristique colone1 = quelCaractristique(plateau[3][0]);
-                Caracteristique autrecolone = quelCaractristique(plateau[i][j]);
-                if (colone1.noirblanc != autrecolone.noirblanc)
-                    noirBlanc = false;
-                if (colone1.croixvide != autrecolone.croixvide)
-                    croixounon = false;
-                if (colone1.cerclecarre != autrecolone.cerclecarre)
-                    cercleCarre = false;
-                if (colone1.entoure != autrecolone.entoure)
-                    entoureNon = false;
-
-            }
-            if (noirBlanc == true || cercleCarre == true || entoureNon == true || croixounon == true) {
-                return true;
-            }
+        //Vérification Diago2
+        cases = new Case[4];
+        for (int i = 0; i < 4; i++) {
+            int j = 3-i;
+            cases[i] = plateau[i][j];
         }
-
-        //Vérification Diago
+        if (verifyLine(cases)){
+            return true;
+        }
+        //Pas de gagnat
         return false;
 
     }
